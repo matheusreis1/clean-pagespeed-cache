@@ -40,3 +40,11 @@ if (class_exists('CleanPagespeedCache')) {
     $cleanPagespeedCache = new CleanPagespeedCache();
     $cleanPagespeedCache->register();
 }
+
+// activation
+require_once plugin_dir_path(__FILE__) . 'inc/clean-pagespeed-cache-activate.php';
+register_activation_hook(__FILE__, array('CleanPagespeedCacheActivate', 'activate'));
+
+// deactivation
+require_once plugin_dir_path(__FILE__) . 'inc/clean-pagespeed-cache-deactivate.php';
+register_activation_hook(__FILE__, array('CleanPagespeedCacheDeactivate', 'deactivate'));
