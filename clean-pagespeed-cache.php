@@ -15,9 +15,28 @@ defined('ABSPATH') or die('Hey, you can\t access this file, you silly human!');
 
 class CleanPagespeedCache {
 
+    private $pluginName;
+
+    public function __construct() {
+        $this->pluginName = plugin_basename(__FILE__);
+    }
+
+    public function register() {
+        add_action('admin_menu', array($this, 'add_admin_page'));
+    }
+
+    public function add_admin_page() {
+        add_menu_page('Clean PageSpeed Cache', 'Clean PageSpeed Cache', 'manage_options', 'clean_pagespeed_cache', array($this, 'admin_index'),
+            'dashicons-trash', 110);
+    }
+
+    public function admin_index() {
+        require_once plugin_dir_path(__FILE__) . 'templates/admin.php';
+    }
+
 }
 
 if (class_exists('CleanPagespeedCache')) {
     $cleanPagespeedCache = new CleanPagespeedCache();
-
+    $cleanPagespeedCache->register();
 }
