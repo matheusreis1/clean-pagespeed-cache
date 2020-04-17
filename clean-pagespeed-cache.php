@@ -5,8 +5,8 @@
  * Plugin Name: Clean PageSpeed Cache
  * Description: Plugin to clean PageSpeed Cache
  * Version: 1.0.0
- * Author: Matheus "matheusreis1" Reis
- * Author URI: https://github.com/matheusreis1
+ * Author: Iuru
+ * Author URI: https://iuru.dev
  * License: GPLv2 or later
  * Text Domain: clean-pagespeed-cache
 */
@@ -23,6 +23,14 @@ class CleanPagespeedCache {
 
     public function register() {
         add_action('admin_menu', array($this, 'add_admin_page'));
+
+        add_filter("plugin_action_links_$this->pluginName", array($this, 'settings_link'));
+    }
+
+    public function settings_link($links) {
+        $settings_link = '<a href="admin.php?page=clean_pagespeed_cache">Settings</a>';
+        array_push( $links, $settings_link );
+        return $links;
     }
 
     public function add_admin_page() {
